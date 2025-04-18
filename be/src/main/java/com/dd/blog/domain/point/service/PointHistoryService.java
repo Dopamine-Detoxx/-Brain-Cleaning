@@ -19,9 +19,9 @@ public class PointHistoryService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public Page<PointHistoryResponseDto> getUserPointHistory(Long userid, Pageable pageable) {
-        User user = userRepository.findById(userid)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id: " + userid));
+    public Page<PointHistoryResponseDto> getUserPointHistory(Long userId, Pageable pageable) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id: " + userId));
 
         Page<PointHistory> historyPage = pointHistoryRepository.findByUserOrderByCreatedAtDesc(user, pageable);
         Page<PointHistoryResponseDto> dtoPage = historyPage.map(this::toDto);

@@ -42,13 +42,13 @@ public class User extends BaseEntity {
     private int totalPoint;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private UserRole role;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @Builder.Default
-    private UserStatus userStatus = UserStatus.ACTIVE;
+    private UserStatus status = UserStatus.ACTIVE;
 
     @Column(name = "refresh_token", unique = true)
     private String refreshToken;
