@@ -6,13 +6,19 @@ import { useRouter, useParams } from 'next/navigation';
 import { UserInfo } from '@/types/user';
 
 interface Post {
-  id: number;
+  postId: number;
+  userId: number;
+  userNickname: string;
+  categoryId: number;
   title: string;
   content: string;
+  imageUrl: string;
+  viewCount: number;
+  likeCount: number;
+  verificationImageUrl: string | null;
+  detoxTime: number | null;
   createdAt: string;
-  author: {
-    nickname: string;
-  };
+  updatedAt: string;
 }
 
 export default function othersProfile() {
@@ -180,7 +186,7 @@ export default function othersProfile() {
         </div>
         {isOwnProfile && (
           <button 
-            onClick={() => router.push('/edit')}
+            onClick={() => router.push('/profile/me/edit')}
             className="bg-pink-500 text-white px-4 py-2 rounded-full text-sm hover:bg-pink-600 transition-colors"
           >
             프로필 설정
@@ -276,11 +282,11 @@ export default function othersProfile() {
           <div className="grid grid-cols-2 gap-4">
             {posts.length > 0 ? (
               posts.map((post) => (
-                <div key={post.id} className="bg-white rounded-lg shadow p-4">
+                <div key={post.postId} className="bg-white rounded-lg shadow p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
                     <div>
-                      <p className="text-sm font-medium">@{post.author.nickname}</p>
+                      <p className="text-sm font-medium">@{post.userNickname}</p>
                       <p className="text-xs text-gray-500">{getTimeAgo(post.createdAt)}</p>
                     </div>
                   </div>
