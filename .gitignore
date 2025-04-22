@@ -4,3 +4,4 @@ application-secret.yml
 db_dev.*
 *.mv.db
 *.trace.db
+node_modu
