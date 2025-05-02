@@ -287,9 +287,8 @@ fe/ (Frontend - Next.js / TypeScript)
  # 9. 커밋 컨벤션
  ## 기본 구조
  ```
- type/#issue number
- 
- body 
+ [type] 수정대상 - 수정내용
+
  ```
  
  <br/>
