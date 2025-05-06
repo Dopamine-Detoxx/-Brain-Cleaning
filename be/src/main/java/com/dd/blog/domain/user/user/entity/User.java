@@ -85,6 +85,10 @@ public class User extends BaseEntity implements UserDetails {
     private LocalDate lastVerificationDate;
 
     @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VerificationHistory> verificationHistories = new ArrayList<>();
+
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
 

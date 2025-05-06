@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -133,6 +134,27 @@ public class ApiV1UserController {
         // 토큰에는 기본 정보만 있으므로, 전체 사용자 정보 조회
         User fullUser = userService.getUserById(user.getId());
         return ResponseEntity.ok(UserResponseDto.fromEntity(fullUser));
+    }
+
+    @GetMapping("/me/verification-history")
+    @Operation(summary = "월별 인증 기록 조회", description = "현재 로그인한 사용자의 특정 연/월 인증 기록을 조회합니다.")
+    public ResponseEntity<List<VerificationDayDto>> getMyVerificationHistory(
+            @RequestParam int year,
+            @RequestParam int month,
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
+
+        User user = null;
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String accessToken = authHeader.substring(7);
+            user = userService.getUserFromAccessToken(accessToken);
+        } else {
+            user = rq.getActor();
+        }
+
+        if (user == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        List<VerificationDayDto> history = userService.getMonthlyVerificationHistory(user.getId(), year, month);
+        return ResponseEntity.ok(history);
     }
 
     @DeleteMapping("/{userId}")

@@ -4,7 +4,9 @@ import com.dd.blog.domain.user.user.dto.*;
 import com.dd.blog.domain.user.user.entity.User;
 import com.dd.blog.domain.user.user.entity.UserRole;
 import com.dd.blog.domain.user.user.entity.UserStatus;
+import com.dd.blog.domain.user.user.entity.VerificationHistory;
 import com.dd.blog.domain.user.user.repository.UserRepository;
+import com.dd.blog.domain.user.user.repository.VerificationHistoryRepository;
 import com.dd.blog.global.aws.AwsS3Uploader;
 import com.dd.blog.global.exception.ApiException;
 import com.dd.blog.global.exception.ErrorCode;
@@ -17,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,6 +30,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthTokenService authTokenService;
+    private final VerificationHistoryRepository verificationHistoryRepository;
     private final AwsS3Uploader awsS3Uploader;
 
     /**
@@ -165,6 +168,33 @@ public class UserService {
         userRepository.save(user);
 
         log.info("사용자 [{}] 로그아웃 처리 완료", user.getEmail());
+    }
+
+    /**
+     * ✅ 월별 인증 이력 조회 (프론트 잔디용)
+     */
+    @Transactional(readOnly = true)
+    public List<VerificationDayDto> getMonthlyVerificationHistory(Long userId, int year, int month) {
+        User user = getUserById(userId);
+
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+        List<VerificationHistory> records = verificationHistoryRepository.findByUserAndDateBetween(user, start, end);
+
+        // 인증한 날짜 리스트 추출
+        Set<LocalDate> verifiedDates = records.stream()
+                .filter(VerificationHistory::isVerified)
+                .map(VerificationHistory::getDate)
+                .collect(Collectors.toSet());
+
+        // 1일부터 말일까지 순회하며 DTO 구성
+        List<VerificationDayDto> result = new ArrayList<>();
+        for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
+            result.add(new VerificationDayDto(date, verifiedDates.contains(date)));
+        }
+
+        return result;
     }
 
     /**
