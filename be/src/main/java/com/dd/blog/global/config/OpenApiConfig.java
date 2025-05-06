@@ -25,11 +25,11 @@ public class OpenApiConfig {
                 .info(new Info().title("BrainCleaner API").version("v1"))
                 .servers(List.of(server))
                 .components(new Components()
-                        .addSecuritySchemes("BearerAuth",
-                                new SecurityScheme()
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")))
+                .addSecuritySchemes("BearerAuth",
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")))
                 .addSecurityItem(
                         new SecurityRequirement().addList("BearerAuth"));
     }

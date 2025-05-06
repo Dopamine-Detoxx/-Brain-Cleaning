@@ -12,8 +12,8 @@ public class UserSpecifications {
     public static Specification<User> nicknameContains(String nickname) {
         return StringUtils.hasText(nickname) ?
                 (root, query, criteriaBuilder) ->
-                        criteriaBuilder.like(root.get("nickname"), "%" + nickname + "%")
-                : Specification.where(null);
+                       criteriaBuilder.like(root.get("nickname"), "%" + nickname + "%")
+                      : Specification.where(null);
 
     }
 
@@ -21,8 +21,8 @@ public class UserSpecifications {
     public static Specification<User> emailContains(String email) {
         return StringUtils.hasText(email) ?
                 (root, query, criteriaBuilder) ->
-                        criteriaBuilder.like(root.get("email"), "%" + email + "%")
-                : Specification.where(null);
+                criteriaBuilder.like(root.get("email"), "%" + email + "%")
+                      : Specification.where(null);
     }
 
     // 역할 (Role) 일치 (Equal) 필터 검색
@@ -30,7 +30,7 @@ public class UserSpecifications {
         return role != null ?
                 (root, query, criteriaBuilder) ->
                         criteriaBuilder.equal(root.get("role"), role)
-                : Specification.where(null);
+                        : Specification.where(null);
     }
 
 

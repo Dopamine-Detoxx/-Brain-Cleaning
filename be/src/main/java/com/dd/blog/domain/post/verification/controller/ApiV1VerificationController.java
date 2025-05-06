@@ -37,8 +37,8 @@ public class ApiV1VerificationController {
     @GetMapping("/{id}")
     @Operation(summary = "인증글 조회", description = "인증글을 ID로 조회합니다.")
     public ResponseEntity<VerificationResponseDto> getVerification(@PathVariable Long id) {
-        VerificationResponseDto response = verificationService.getVerification(id);
-        return ResponseEntity.ok(response);
+            VerificationResponseDto response = verificationService.getVerification(id);
+            return ResponseEntity.ok(response);
     }
 
     @GetMapping("/weekly")

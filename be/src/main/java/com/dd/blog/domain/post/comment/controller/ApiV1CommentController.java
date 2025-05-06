@@ -111,8 +111,8 @@ public class ApiV1CommentController {
     public ResponseEntity<String> deleteComment(
             @PathVariable Long commentId,
             @AuthenticationPrincipal SecurityUser user){
-        commentService.deleteComment(commentId, user.getId());
-        return ResponseEntity.ok("댓글이 삭제되었습니다.");
+            commentService.deleteComment(commentId, user.getId());
+            return ResponseEntity.ok("댓글이 삭제되었습니다.");
     }
 
 }

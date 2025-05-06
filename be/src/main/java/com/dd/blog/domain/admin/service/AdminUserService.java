@@ -31,10 +31,10 @@ public class AdminUserService { //
         Specification<User> spec = Specification.where(null);
 
 
-        spec = spec.and(UserSpecifications.nicknameContains(nickname))
-                .and(UserSpecifications.emailContains(email))
-                .and(UserSpecifications.roleEquals(role))
-                .and(UserSpecifications.statusEquals(status));
+            spec = spec.and(UserSpecifications.nicknameContains(nickname))
+                    .and(UserSpecifications.emailContains(email))
+                    .and(UserSpecifications.roleEquals(role))
+                    .and(UserSpecifications.statusEquals(status));
 
 
         Page<User> userPage = userRepository.findAll(spec, pageable);

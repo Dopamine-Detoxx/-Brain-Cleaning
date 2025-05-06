@@ -20,4 +20,4 @@ public class UpdateProfileRequestDto {
     private Integer detoxGoal;
     private LocalDate birthDate;
     private String profileImageUrl;
-}
+} 

@@ -37,7 +37,7 @@ public class PostResponseDto {
         // 이미지 URL 중복 처리
         String[] imageUrls = post.getImageUrl();
         String verificationImageUrl = null;
-
+        
         // post/ 경로의 이미지 필터링 (중복 이미지 방지)
         if (imageUrls != null && imageUrls.length > 0) {
             List<String> filteredUrls = new ArrayList<>();
@@ -49,12 +49,12 @@ public class PostResponseDto {
             }
             imageUrls = filteredUrls.toArray(new String[0]);
         }
-
+        
         // 인증 게시판인 경우 첫 번째 이미지를 verificationImageUrl로 설정
         if (post.getCategory().getId() == 1L && imageUrls != null && imageUrls.length > 0) {
             verificationImageUrl = imageUrls[0];
         }
-
+        
         return PostResponseDto.builder()
                 .postId(post.getId())
                 .userId(post.getUser().getId())

@@ -97,7 +97,7 @@ public class PostService {
 
         // 기존 이미지 URL 배열 (null이면 빈 배열로 초기화)
         String[] existingImageUrls = postRequestDto.getImageUrl() != null ? postRequestDto.getImageUrl() : new String[0];
-
+        
         // 새로 업로드된 이미지 처리
         List<String> newImageUrlList = new ArrayList<>();
         if (postImages != null && postImages.length > 0) {
@@ -149,13 +149,13 @@ public class PostService {
                 .user(user)
                 .detoxTime(postRequestDto.getDetoxTime()) // Integer: 디톡스 시간 (~h)
                 .verificationImageUrl(
-                        categoryId == 1L
-                                ? (!newImageUrlList.isEmpty()
-                                ? newImageUrlList.get(0)
-                                : (existingImageUrls.length > 0
-                                ? existingImageUrls[0]
-                                : null))
-                                : null)
+                 categoryId == 1L
+                 ? (!newImageUrlList.isEmpty()
+                 ? newImageUrlList.get(0)
+                 : (existingImageUrls.length > 0
+                         ? existingImageUrls[0]
+                         : null))
+                        : null)
                 .viewCount(0) // 핫게시물 TOP5 위해 재추가
                 .build();
 
@@ -322,7 +322,7 @@ public class PostService {
         // 새로 업로드된 이미지 처리
         List<String> newImageUrls = new ArrayList<>();
         System.out.println("업로드할 이미지 개수: " + (postImages != null ? postImages.length : 0));
-
+        
         if (postImages != null && postImages.length > 0) {
             for (MultipartFile postImage : postImages) {
                 System.out.println("이미지 업로드 시작: " + postImage.getOriginalFilename());
@@ -334,14 +334,14 @@ public class PostService {
 
         // 기존 이미지 URL과 새 이미지 URL 결합
         List<String> combinedImageUrls = new ArrayList<>();
-
+        
         // 기존 이미지 URL 추가 (DTO에서 가져오거나 기존 게시글에서 가져옴)
-        String[] existingImageUrls = postPatchRequestDto.getImageUrl() != null ?
-                postPatchRequestDto.getImageUrl() : post.getImageUrl();
-
+        String[] existingImageUrls = postPatchRequestDto.getImageUrl() != null ? 
+            postPatchRequestDto.getImageUrl() : post.getImageUrl();
+        
         System.out.println("기존 이미지 URL 개수: " + (existingImageUrls != null ? existingImageUrls.length : 0));
         System.out.println("새로 업로드된 이미지 URL 개수: " + newImageUrls.size());
-
+        
         if (existingImageUrls != null) {
             for (String url : existingImageUrls) {
                 if (url != null && !url.trim().isEmpty()) {
@@ -360,16 +360,16 @@ public class PostService {
 
         // 게시글 업데이트
         post.update(
-                postPatchRequestDto.getTitle(),
-                postPatchRequestDto.getContent(),
-                finalImageUrls
+            postPatchRequestDto.getTitle(),
+            postPatchRequestDto.getContent(),
+            finalImageUrls
         );
 
         // 업데이트된 게시글을 저장하고 응답 DTO 생성
         Post updatedPost = postRepository.save(post);
         PostResponseDto responseDto = PostResponseDto.fromEntity(updatedPost);
         responseDto.setImageUrl(finalImageUrls); // 최종 이미지 URL 설정
-
+        
         return responseDto;
     }
 

@@ -35,7 +35,7 @@ public class VerificationService {
     public VerificationResponseDto createVerification(VerificationRequestDto verificationRequestDto) {
         Post post = postRepository.findById(verificationRequestDto.getPostId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
-
+                
         User user = userRepository.findById(verificationRequestDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
 
@@ -151,10 +151,10 @@ public class VerificationService {
 
         // 해당 사용자의 이번 주 유효한 인증 날짜들을 조회
         return verificationRepository.findByUserIdAndCreatedAtBetweenAndStatusIn(
-                        userId,
-                        startOfWeek.atStartOfDay(),
-                        endOfWeek.atTime(23, 59, 59),
-                        validStatuses)
+                userId,
+                startOfWeek.atStartOfDay(),
+                endOfWeek.atTime(23, 59, 59),
+                validStatuses)
                 .stream()
                 .map(verification -> verification.getCreatedAt().toLocalDate())
                 .distinct() // 같은 날 여러 번 인증한 경우 중복 제거

@@ -51,7 +51,7 @@ public class AdminReportController {
     public ResponseEntity<Void> updateReportStatus(
             @PathVariable Long reportId,
             @Valid @RequestBody ReportStatusUpdateDto requestDto
-    ) {
+            ) {
         adminReportService.updateReportStatus(reportId, requestDto.getReportStatus());
         return ResponseEntity.noContent().build();
     }

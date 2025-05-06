@@ -141,10 +141,21 @@ resource "aws_security_group" "blog_sg" {
 resource "aws_s3_bucket" "braincleaner_bucket" {
   bucket = "braincleaner-images" # 이미 수동 생성한 버킷 이름과 일치해야 함
 
+  tags = {
+    Name = "braincleaner-images"
+    Environment = "dev"
+    Name = "${var.prefix}-blog-sg"
+  }
+}
+
+# S3 버킷(braincleaner-images) 리소스를 Terraform으로 관리
+resource "aws_s3_bucket" "braincleaner_bucket" {
+  bucket = "braincleaner-images" # 이미 수동 생성한 버킷 이름과 일치해야 함
+
   lifecycle {
     prevent_destroy = true
   }
-  
+
   tags = {
     Name = "braincleaner-images"
     Environment = "dev"

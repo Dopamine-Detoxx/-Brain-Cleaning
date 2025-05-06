@@ -15,4 +15,4 @@ public class GlobalExceptionHandler {
                 .status(e.getErrorCode().getHttpStatus())
                 .body(Map.of("message", e.getErrorCode().getMessage()));
     }
-}
+} 

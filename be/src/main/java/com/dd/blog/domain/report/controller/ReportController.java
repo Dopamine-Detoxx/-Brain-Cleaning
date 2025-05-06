@@ -36,13 +36,13 @@ public class ReportController {
     public ResponseEntity<Long> createReport(
             @Valid @RequestBody ReportCreateRequestDto request,
             @AuthenticationPrincipal SecurityUser securityUser
-    ) {
-        if(securityUser == null)
-            throw new ApiException(ErrorCode.ACCESS_DENIED);
-        Long reporterId = securityUser.getId();
-        Long createdReportId = reportService.createReport(request, reporterId);
+            ) {
+            if(securityUser == null)
+                throw new ApiException(ErrorCode.ACCESS_DENIED);
+            Long reporterId = securityUser.getId();
+            Long createdReportId = reportService.createReport(request, reporterId);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdReportId);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdReportId);
 
 
     }
