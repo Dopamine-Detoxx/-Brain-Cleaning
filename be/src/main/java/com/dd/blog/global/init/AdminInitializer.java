@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Profile({"dev", "prod"})
 @Component
 @Order(4)
@@ -37,6 +39,8 @@ public class AdminInitializer implements ApplicationRunner  {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
+
+        log.info("✅ AdminInitializer 실행됨");
 
         List<User> admins = userRepository.findByRole(UserRole.ROLE_ADMIN);
 
