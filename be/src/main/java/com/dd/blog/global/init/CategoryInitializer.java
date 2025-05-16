@@ -4,9 +4,11 @@ import com.dd.blog.domain.post.category.entity.Category;
 import com.dd.blog.domain.post.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+@Profile("prod")
 @Component
 @Order(1)
 @RequiredArgsConstructor
