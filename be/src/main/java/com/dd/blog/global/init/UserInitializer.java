@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-@Profile("prod")
+@Profile({"dev", "prod"})
 @Component
 @Order(3)
 @RequiredArgsConstructor

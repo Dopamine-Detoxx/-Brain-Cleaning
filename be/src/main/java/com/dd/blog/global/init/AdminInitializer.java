@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Profile("prod")
+@Profile({"dev", "prod"})
 @Component
 @Order(4)
 @RequiredArgsConstructor
