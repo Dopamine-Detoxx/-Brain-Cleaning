@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,10 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Profile({"dev", "prod"})
-@Component
 @Order(4)
+@Component
 @RequiredArgsConstructor
-public class AdminInitializer implements ApplicationRunner  {
+public class AdminInitializer  {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -36,9 +37,8 @@ public class AdminInitializer implements ApplicationRunner  {
     @Value("${admin.initial.nickname}")
     String adminNickname;
 
-    @Override
     @Transactional
-    public void run(ApplicationArguments args) throws Exception {
+    public void run() {
 
         log.info("✅ AdminInitializer 실행됨");
 

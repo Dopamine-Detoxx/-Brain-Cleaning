@@ -17,17 +17,16 @@ import java.util.Arrays;
 import java.util.List;
 
 @Profile({"dev", "prod"})
-@Component
 @Order(3)
+@Component
 @RequiredArgsConstructor
-public class UserInitializer implements CommandLineRunner {
+public class UserInitializer {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
     @Transactional
-    public void run(String... args) {
+    public void run() {
         // 더미 유저를 위한 기본 비밀번호
         String defaultPassword = passwordEncoder.encode("Qwert12345!");
 

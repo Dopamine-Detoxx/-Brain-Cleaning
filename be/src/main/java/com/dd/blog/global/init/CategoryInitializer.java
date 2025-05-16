@@ -9,15 +9,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Profile({"dev", "prod"})
-@Component
 @Order(1)
+@Component
 @RequiredArgsConstructor
-public class CategoryInitializer implements CommandLineRunner {
+public class CategoryInitializer {
 
     private final CategoryRepository categoryRepository;
 
-    @Override
-    public void run(String... args) {
+    public void run() {
         saveIfNotExist("인증게시판");
         saveIfNotExist("정보공유게시판");
         saveIfNotExist("자유게시판");

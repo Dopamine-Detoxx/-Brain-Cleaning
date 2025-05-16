@@ -10,15 +10,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Profile({"dev", "prod"})
-@Component
 @Order(2)
+@Component
 @RequiredArgsConstructor
-public class PointItemInitializer implements CommandLineRunner {
+public class PointItemInitializer {
 
     private final PointItemRepository pointItemRepository;
 
-    @Override
-    public void run(String... args) {
+    public void run() {
         saveIfNotExist(
                 "brain",
                 "brain",
