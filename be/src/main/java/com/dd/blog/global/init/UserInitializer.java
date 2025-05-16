@@ -6,6 +6,7 @@ import com.dd.blog.domain.user.user.entity.UserStatus;
 import com.dd.blog.domain.user.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@Order(3)
 @RequiredArgsConstructor
 public class UserInitializer implements CommandLineRunner {
 
